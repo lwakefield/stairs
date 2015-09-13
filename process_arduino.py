@@ -25,3 +25,4 @@ while True:
     print now
     reading = Readings(value=val, updated_at=now, created_at=now)
     reading.save()
+    sleep(0.1)

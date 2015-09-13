@@ -15,7 +15,7 @@ void setup() {
 void loop() {
   long distance = getDistance(trigPin, echoPin);
   Serial.println(distance);
-  delay(10);
+  delay(100);
 }
 
 long getDistance(int trigPin, int echoPin){
