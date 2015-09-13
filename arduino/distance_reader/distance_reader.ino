@@ -14,13 +14,7 @@ void setup() {
 
 void loop() {
   long distance = getDistance(trigPin, echoPin);
-  if (distance < THRESHOLD) {  
-    Serial.println("P");
-  }
-  else {
-    Serial.print(distance);
-    Serial.println(" cm");
-  }
+  Serial.println(distance);
   delay(10);
 }
 

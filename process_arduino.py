@@ -1,16 +1,27 @@
 import serial
-import sqlite3
-from datetime import date, datetime
+from peewee import *
+import dircache
+from datetime import datetime
+from time import sleep
 
-dev_address = raw_input("Please enter the dev address:")
-s = serial.Serial(port=dev_address, baudrate=9600)
+dev_list = dircache.listdir('/dev/')
+dev = '/dev/' + [dev for dev in dev_list if dev.startswith('cu.usbmodem1421')][0]
+print 'using device: ' + dev
 
-conn = sqlite3.connect('storage/database.sqlite')
-c = conn.cursor()
+s = serial.Serial(port=dev, baudrate=9600)
+db = SqliteDatabase('storage/database.sqlite')
+
+class Readings(Model):
+    value = CharField()
+    created_at = DateField()
+    updated_at  = DateField()
+
+    class Meta:
+        database = db
 
 while True:
     val = s.readline()
     now = datetime.now()
     print now
-    if val:
-        c.execute("INSERT INTO readings (value, created_at, update_at) VALUES ('"+val+"',"+now+","+now+")")
+    reading = Readings(value=val, updated_at=now, created_at=now)
+    reading.save()
