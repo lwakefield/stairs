@@ -22,7 +22,7 @@ class Readings(Model):
 while True:
     val = s.readline()
     now = datetime.now()
-    print now
+    # print now, ':', val
     reading = Readings(value=val, updated_at=now, created_at=now)
     reading.save()
     sleep(0.1)
