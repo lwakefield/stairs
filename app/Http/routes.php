@@ -26,3 +26,17 @@ Route::get('/', function () {
     }
     return view('splash')->with(compact('sum'));
 });
+
+Route::get('/api/score', function() {
+    $latest_readings = Reading::
+        orderBy('created_at', 'desc')->
+        take(1000)->
+        select('value')->
+        get();
+    $sum = 0;
+    foreach ($latest_readings as $reading) {
+        $val = str_replace("\r\n", '', $reading->value);
+        $sum += $val;
+    }
+    return $sum;
+});

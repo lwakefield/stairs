@@ -5,7 +5,7 @@ from datetime import datetime
 from time import sleep
 
 dev_list = dircache.listdir('/dev/')
-dev = '/dev/' + [dev for dev in dev_list if dev.startswith('cu.usbmodem1421')][0]
+dev = '/dev/' + [dev for dev in dev_list if dev.startswith('cu.usbmodem')][0]
 print 'using device: ' + dev
 
 s = serial.Serial(port=dev, baudrate=9600)
@@ -22,7 +22,7 @@ class Readings(Model):
 while True:
     val = s.readline()
     now = datetime.now()
-    # print now, ':', val
-    reading = Readings(value=val, updated_at=now, created_at=now)
+    print now, ':', val
+    reading = Readings(value=val.rstrip(), updated_at=now, created_at=now)
     reading.save()
     sleep(0.1)

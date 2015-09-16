@@ -26,8 +26,18 @@
         </style>
     </head>
     <body>
-        <h1>Counted a total of <br>
-            <em>{{ $sum }}cm</em> <br>
-            over the last 100s</h1>
+        <h1>The score is <em class="score"></em></h1>
+        <script>
+            setInterval(function() {
+                var request = new XMLHttpRequest();
+                request.open('GET', 'api/score');
+                request.onreadystatechange = function ()
+                {
+                    var score_element = document.querySelectorAll('.score')[0];
+                    score_element.innerHTML = request.responseText;
+                }
+                request.send(null);
+            }, 1000);
+        </script>
     </body>
 </html>

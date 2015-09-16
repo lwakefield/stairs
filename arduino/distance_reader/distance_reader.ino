@@ -15,7 +15,7 @@ void setup() {
 void loop() {
   long distance = getDistance(trigPin, echoPin);
   Serial.println(distance);
-  delay(100);
+  delay(1000);
 }
 
 long getDistance(int trigPin, int echoPin){
@@ -28,8 +28,6 @@ long getDistance(int trigPin, int echoPin){
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
   duration = pulseIn(echoPin, HIGH);
-  distance = duration/58.2; //in cm
-
-  return distance;
+  return duration;
 }
 
