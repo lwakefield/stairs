@@ -12,31 +12,22 @@
 */
 
 use App\Reading;
+use Carbon\Carbon;
+
+define('SIGNAL_THRESHOLD', 500);
 
 Route::get('/', function () {
-    $latest_readings = Reading::
-        orderBy('created_at', 'desc')->
-        take(1000)->
-        select('value')->
-        get();
-    $sum = 0;
-    foreach ($latest_readings as $reading) {
-        $val = str_replace("\r\n", '', $reading->value);
-        $sum += $val;
-    }
-    return view('splash')->with(compact('sum'));
+    return view('splash');
 });
 
 Route::get('/api/score', function() {
-    $latest_readings = Reading::
-        orderBy('created_at', 'desc')->
-        take(1000)->
-        select('value')->
-        get();
-    $sum = 0;
-    foreach ($latest_readings as $reading) {
-        $val = str_replace("\r\n", '', $reading->value);
-        $sum += $val;
-    }
-    return $sum;
+    $time_until = Carbon::now('Australia/Sydney')->subMinutes(5);
+    $score = Reading::
+        where('created_at', '>', $time_until)->
+        where('value', '<', SIGNAL_THRESHOLD)->
+        count();
+    $total_readings = Reading::
+        where('created_at', '>', $time_until)->
+        count();
+    return $score / $total_readings;
 });
