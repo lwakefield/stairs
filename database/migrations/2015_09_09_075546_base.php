@@ -13,7 +13,7 @@ class Base extends FastMigrator
     {
         $I = $this;
         $I->wantATable('readings')
-            ->withString('value');
+            ->withInteger('value');
         $I->amReadyForMigration();
     }
 

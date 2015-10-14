@@ -3,6 +3,7 @@ from peewee import *
 import dircache
 from datetime import datetime
 from time import sleep
+import sys
 
 dev_list = dircache.listdir('/dev/')
 dev = '/dev/' + [dev for dev in dev_list if dev.startswith('cu.usbmodem')][0]
@@ -21,8 +22,11 @@ class Readings(Model):
 
 while True:
     val = s.readline()
+    val = val.rstrip()
+    if val == '0':
+        val = 100000
+    s.flush()
     now = datetime.now()
     print now, ':', val
-    reading = Readings(value=val.rstrip(), updated_at=now, created_at=now)
+    reading = Readings(value=val, updated_at=now, created_at=now)
     reading.save()
-    sleep(0.1)
