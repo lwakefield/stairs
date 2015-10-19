@@ -5,11 +5,13 @@
         <meta name="viewport" content="width=device-width">
         <title>Stairs</title>
         <link href='https://fonts.googleapis.com/css?family=Lato:700italic,300' rel='stylesheet' type='text/css'>
+        <link href='css/sprite.css' rel='stylesheet' type='text/css'>
         <style>
             html,
             body {
                 margin: 0;
                 height: 100vh;
+                background-color: #FEFFFC;
             }
             body {
                 display: flex;
@@ -33,7 +35,7 @@
     <body>
         <h1>The score is <em class="score"></em></h1>
         <div class="avatar-wrapper">
-            <img class="avatar" src="imgs/one.png" width="350" height="150">
+            <div class="avatar">
         </div>
         <script>
             setInterval(function() {
@@ -45,18 +47,14 @@
                     var score_element = document.querySelectorAll('.score')[0];
                     score_element.innerHTML = score;
                     var avatar_element = document.querySelectorAll('.avatar')[0];
-                    var sprite_class = score / 19;
-                    if (score < .2) {
-                        avatar_element.src = "imgs/one.png";
-                    } else if (score < .4) {
-                        avatar_element.src = "imgs/two.png";
-                    } else if (score < .6) {
-                        avatar_element.src = "imgs/three.png";
-                    } else if (score < .8) {
-                        avatar_element.src = "imgs/four.png";
-                    } else {
-                        avatar_element.src = "imgs/five.png";
+                    var sprite_class = Math.floor(score * 18).toString();
+                    if (sprite_class.length == 1) {
+                        sprite_class = "00" + sprite_class;
+                    } else if (sprite_class.length == 2) {
+                        sprite_class = "0" + sprite_class;
                     }
+                    avatar_element.className = "avatar icon-" + sprite_class;
+                    console.log(sprite_class);
                 }
                 request.send(null);
             }, 1000);

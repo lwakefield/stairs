@@ -15,7 +15,7 @@ require('laravel-elixir-spritesmith');
 elixir(function(mix) {
     mix.sass('app.scss');
     mix.spritesmith('resources/assets/imgs/avatars', {
-        imgOutput: 'public/imgs',
+        imgOutput: 'public/img',
         cssOutput: 'public/css'
     });
 });
