@@ -6,7 +6,8 @@ from time import sleep
 import sys
 
 dev_list = dircache.listdir('/dev/')
-dev = '/dev/' + [dev for dev in dev_list if dev.startswith('cu.usbmodem')][0]
+dev = '/dev/' + [dev for dev in dev_list if dev.startswith('cu.usbmodem') or
+        dev.startswith('ttyACM')][0]
 print 'using device: ' + dev
 
 s = serial.Serial(port=dev, baudrate=9600)
