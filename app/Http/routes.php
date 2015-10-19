@@ -14,7 +14,7 @@
 use App\Reading;
 use Carbon\Carbon;
 
-define('SIGNAL_THRESHOLD', 500);
+define('SIGNAL_THRESHOLD', 5000);
 
 Route::get('/', function () {
     return view('splash');
