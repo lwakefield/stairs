@@ -1,4 +1,5 @@
 var elixir = require('laravel-elixir');
+require('laravel-elixir-spritesmith');
 
 /*
  |--------------------------------------------------------------------------
@@ -13,4 +14,8 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.sass('app.scss');
+    mix.spritesmith('resources/assets/imgs/avatars', {
+        imgOutput: 'public/imgs',
+        cssOutput: 'public/css'
+    });
 });

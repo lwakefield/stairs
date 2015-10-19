@@ -45,6 +45,7 @@
                     var score_element = document.querySelectorAll('.score')[0];
                     score_element.innerHTML = score;
                     var avatar_element = document.querySelectorAll('.avatar')[0];
+                    var sprite_class = score / 19;
                     if (score < .2) {
                         avatar_element.src = "imgs/one.png";
                     } else if (score < .4) {
